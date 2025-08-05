@@ -60,7 +60,7 @@ export const CustomerForm = ({ customer, onSave, onCancel }: CustomerFormProps) 
 
         toast({
           title: "تم بنجاح",
-          description: "تم تحديث بيانات العميل بنجاح",
+          description: "تم تحديث بيانات الخط بنجاح",
         });
       } else {
         // Create new customer
@@ -72,7 +72,7 @@ export const CustomerForm = ({ customer, onSave, onCancel }: CustomerFormProps) 
 
         toast({
           title: "تم بنجاح",
-          description: "تم إضافة العميل الجديد بنجاح",
+          description: "تم إضافة الخط الجديد بنجاح",
         });
       }
 
@@ -81,7 +81,7 @@ export const CustomerForm = ({ customer, onSave, onCancel }: CustomerFormProps) 
       console.error('Error saving customer:', error);
       toast({
         title: "خطأ",
-        description: "فشل في حفظ بيانات العميل",
+        description: "فشل في حفظ بيانات الخط",
         variant: "destructive",
       });
     } finally {
@@ -94,7 +94,7 @@ export const CustomerForm = ({ customer, onSave, onCancel }: CustomerFormProps) 
       <Card className="max-w-2xl mx-auto shadow-lg">
         <CardHeader>
           <CardTitle className="text-center text-2xl">
-            {customer?.id ? 'تعديل بيانات العميل' : 'إضافة عميل جديد'}
+            {customer?.id ? 'تعديل خط 40 ميجا' : 'إضافة خط 40 ميجا جديد'}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -135,9 +135,6 @@ export const CustomerForm = ({ customer, onSave, onCancel }: CustomerFormProps) 
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="40">40 ميجا</SelectItem>
-                    <SelectItem value="50">50 ميجا</SelectItem>
-                    <SelectItem value="100">100 ميجا</SelectItem>
-                    <SelectItem value="200">200 ميجا</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

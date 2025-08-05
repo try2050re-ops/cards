@@ -7,7 +7,8 @@ import { Lines60Table } from "@/components/Lines60Table";
 import { LineForm } from "@/components/LineForm";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart3, Users, Plus, Wifi, Router } from "lucide-react";
+import { BarChart3, Users, Plus, Wifi, Router, LogOut, Moon, Sun, MessageCircle } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 interface Customer {
   id: number;
@@ -38,13 +39,18 @@ interface Line {
   updated_at: string;
 }
 
-const Index = () => {
+interface IndexProps {
+  onLogout: () => void;
+}
+
+const Index = ({ onLogout }: IndexProps) => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [showForm, setShowForm] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [showLineForm, setShowLineForm] = useState(false);
   const [editingLine, setEditingLine] = useState<Line | null>(null);
   const [currentLineType, setCurrentLineType] = useState<'20' | '60'>('20');
+  const { theme, setTheme } = useTheme();
 
   const handleAddCustomer = () => {
     setEditingCustomer(null);
@@ -99,9 +105,50 @@ const Index = () => {
     setEditingLine(null);
   };
 
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "201559181558";
+    const message = "مرحباً، أريد الاستفسار عن نظام إدارة خطوط الإنترنت";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
       <div className="container mx-auto px-4 py-8">
+        {/* Header with controls */}
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="hover-scale"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleWhatsAppContact}
+              className="hover-scale bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/40"
+            >
+              <MessageCircle className="h-4 w-4 ml-2" />
+              تواصل مع المطور
+            </Button>
+          </div>
+          <Button
+            variant="outline"
+            onClick={onLogout}
+            className="hover-scale text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+          >
+            <LogOut className="h-4 w-4 ml-2" />
+            تسجيل الخروج
+          </Button>
+        </div>
+
         <header className="text-center mb-12 animate-fade-in">
           <h1 className="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
             نظام إدارة خطوط الإنترنت
@@ -119,13 +166,13 @@ const Index = () => {
                   <BarChart3 className="h-4 w-4" />
                   لوحة التحكم
                 </TabsTrigger>
-                <TabsTrigger value="customers" className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  العملاء
-                </TabsTrigger>
                 <TabsTrigger value="lines20" className="flex items-center gap-2">
                   <Wifi className="h-4 w-4" />
                   خطوط 20
+                </TabsTrigger>
+                <TabsTrigger value="customers" className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  خطوط 40
                 </TabsTrigger>
                 <TabsTrigger value="lines60" className="flex items-center gap-2">
                   <Router className="h-4 w-4" />
@@ -138,17 +185,18 @@ const Index = () => {
               <Dashboard />
             </TabsContent>
 
-            <TabsContent value="customers" className="mt-8">
-              <CustomerTable 
-                onAddCustomer={handleAddCustomer}
-                onEditCustomer={handleEditCustomer}
-              />
-            </TabsContent>
 
             <TabsContent value="lines20" className="mt-8">
               <Lines20Table 
                 onAddLine={handleAddLine20}
                 onEditLine={handleEditLine}
+              />
+            </TabsContent>
+
+            <TabsContent value="customers" className="mt-8">
+              <CustomerTable 
+                onAddCustomer={handleAddCustomer}
+                onEditCustomer={handleEditCustomer}
               />
             </TabsContent>
 

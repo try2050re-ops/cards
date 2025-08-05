@@ -108,10 +108,10 @@ export const CustomerTable = ({ onAddCustomer, onEditCustomer }: CustomerTablePr
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">قائمة العملاء</h2>
+        <h2 className="text-2xl font-bold">خطوط 40 ميجا</h2>
         <Button onClick={onAddCustomer} className="hover-scale">
           <Plus className="h-4 w-4 ml-2" />
-          إضافة عميل جديد
+          إضافة خط جديد
         </Button>
       </div>
 
@@ -119,7 +119,7 @@ export const CustomerTable = ({ onAddCustomer, onEditCustomer }: CustomerTablePr
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50">
-              <TableHead className="text-right">رقم العميل</TableHead>
+              <TableHead className="text-right">رقم الخط</TableHead>
               <TableHead className="text-right">اسم العميل</TableHead>
               <TableHead className="text-right">رقم الموبايل</TableHead>
               <TableHead className="text-right">نوع الخط</TableHead>
@@ -146,7 +146,7 @@ export const CustomerTable = ({ onAddCustomer, onEditCustomer }: CustomerTablePr
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline">{customer.line_type}</Badge>
+                  <Badge variant="outline" className="bg-orange-50">{customer.line_type} ميجا</Badge>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
@@ -194,10 +194,10 @@ export const CustomerTable = ({ onAddCustomer, onEditCustomer }: CustomerTablePr
 
       {customers.length === 0 && (
         <div className="text-center py-12 animate-fade-in">
-          <div className="text-muted-foreground text-lg">لا توجد بيانات عملاء</div>
+          <div className="text-muted-foreground text-lg">لا توجد خطوط 40 ميجا</div>
           <Button onClick={onAddCustomer} className="mt-4 hover-scale">
             <Plus className="h-4 w-4 ml-2" />
-            إضافة أول عميل
+            إضافة أول خط
           </Button>
         </div>
       )}
